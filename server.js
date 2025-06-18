@@ -17,14 +17,13 @@ app.use(express.json()) // for read body
 // Routing GET , POST , PUT , PATCH , DELETE
 
 app.use("/api", userRouter)
-app.use("/auth" , authRouter)
+app.use("/auth", authRouter)
 
-// app.get("/" , (req , res )=>{
-//     //code body
-//     res.json({ msg : "connect"})
-// })
+app.use((err, req, res, next) => {
+    console.log(err.message)
+    res.status(err.code || 500).json({message : err.message || "smt Error"})
 
-
+})
 
 // start server
 app.listen(PORT, () => console.log(`running server http://localhost:${PORT}`)
