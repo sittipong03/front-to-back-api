@@ -3,6 +3,8 @@ import cors from "cors"
 import morgan from "morgan"
 import userRouter from "./routes/user.route.js"
 import authRouter from "./routes/auth.route.js"
+import error from "./utils/error-handle.utils.js"
+import notFound from "./utils/not-found.utils.js"
 
 
 const PORT = 8000
@@ -19,11 +21,11 @@ app.use(express.json()) // for read body
 app.use("/api", userRouter)
 app.use("/auth", authRouter)
 
-app.use((err, req, res, next) => {
-    console.log(err.message)
-    res.status(err.code || 500).json({message : err.message || "smt Error"})
+// ERROR handling
+app.use(error)
 
-})
+//404
+app.use(notFound)
 
 // start server
 app.listen(PORT, () => console.log(`running server http://localhost:${PORT}`)

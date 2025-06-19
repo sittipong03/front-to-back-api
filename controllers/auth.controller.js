@@ -71,7 +71,7 @@ export const login = async (req, res ,next) => {
     }
 
     //step 4 check password 
-    const checkPassword = bcrypt.compareSync(password , user.password)
+    const checkPassword = bcrypt.compareSync(password , user.password) // เช็ึึค password จาก body เทียบกับ ใน db compare จะ decrypt ของใน db แล้วเทียบให้เลย
     if(!checkPassword){
         createError(400 , "Email or Password is Invalid!!!")
     }
